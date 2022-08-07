@@ -1,0 +1,25 @@
+.modal-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+Button + Button {
+    margin-left: 1rem;
+}
+
+.total {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 22px;
+}
+
+.total strong {
+    color: #8a2b06;
+}
+
+.total p {
+    margin: 0 0 1.2rem 0;
+}

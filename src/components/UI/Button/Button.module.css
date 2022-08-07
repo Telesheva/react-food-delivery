@@ -1,0 +1,40 @@
+.button {
+    background-color: #8a2b06;
+    color: white;
+    padding: 0.4rem 2rem;
+    border-radius: 1rem;
+    width: fit-content;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.button-outline {
+    background-color: transparent;
+    border: 1px solid #8a2b06;
+    color: #8a2b06;
+    padding: 0.4rem 2rem;
+    border-radius: 1rem;
+    width: fit-content;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: transparent;
+    border: 1px solid #8a2b06;
+    color: #8a2b06;
+}
+
+.button-outline:hover {
+    background-color: #8a2b06;
+    color: white;
+}
+
+.button:disabled,
+.button:disabled:hover {
+    cursor: not-allowed;
+    background-color: lightgray;
+    color: gray;
+    border: 1px solid gray;
+}

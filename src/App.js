@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from "react";
+import styles from './App.module.css';
+import Header from "./components/Layout/Header/Header";
+import Meals from "./components/Meals/Meals";
+import CartModal from "./components/Cart/CartModal/CartModal";
+import CheckoutModal from "./components/Checkout/CheckoutModal/CheckoutModal";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [modalState, setModalState] = useState({
+        cartModal: false,
+        checkoutModal: false,
+    });
+
+    const openCartModal = () => {
+        setModalState({
+            cartModal: true,
+            checkoutModal: false,
+        });
+    };
+
+    const closeModals = () => {
+        setModalState({
+            cartModal: false,
+            checkoutModal: false,
+        });
+    };
+
+    const goToCheckout = () => {
+        setModalState({
+            cartModal: false,
+            checkoutModal: true,
+        });
+    };
+
+    return (
+        <>
+            {modalState.cartModal && <CartModal onCloseModal={closeModals} onGoToCheckout={goToCheckout} />}
+            {modalState.checkoutModal && <CheckoutModal onCloseModal={closeModals} />}
+            <Header onOpenCartModal={openCartModal} />
+            <main className={styles.main}>
+                <Meals/>
+            </main>
+        </>
+    );
 }
 
 export default App;

@@ -1,0 +1,17 @@
+.modal-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+Button + Button {
+    margin-left: 1rem;
+}
+
+.total {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+}
