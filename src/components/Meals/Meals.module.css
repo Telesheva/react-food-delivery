@@ -8,6 +8,16 @@
     animation: meals-appear 1s ease-out forwards;
 }
 
+.placeholder {
+    color: white;
+    font-size: 22px;
+}
+
+.error {
+    color: #f36767;
+    font-size: 30px;
+}
+
 @keyframes meals-appear {
     from {
         opacity: 0;

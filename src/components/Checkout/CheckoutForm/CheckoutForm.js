@@ -4,6 +4,7 @@ import styles from "./CheckoutForm.module.css";
 import CartContext from "../../../store/cart-context";
 import Input from "../../UI/Input/Input";
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 const CheckoutForm = props => {
     const cartContext = useContext(CartContext);
@@ -19,46 +20,26 @@ const CheckoutForm = props => {
     const completeOrderHandler = async (values) => {
         await fetch('https://react-food-delivery-b82d5-default-rtdb.firebaseio.com/orders.json', {
             method: 'POST',
-            body: JSON.stringify(values),
+            body: JSON.stringify({ ...values, orderedItems: cartContext.cartItems }),
         });
         cartContext.resetCart();
         props.onCloseModal();
+        alert('Thank you for your order! Our manager will reach out to you soon!');
     };
 
-    const validateForm = (values) => {
-        const errors = {};
-
-        if (!values.name) {
-            errors.name = 'Name is required!';
-        }
-
-        if (!values.surname) {
-            errors.surname = 'Surname is required!';
-        }
-
-        if (!values.address) {
-            errors.address = 'Address is required!';
-        }
-
-        if (!values.people) {
-            errors.people = 'Please enter an amount of people!';
-        } else if (values.people < 0 || isNaN(values.people)) {
-            errors.people = 'Please enter an amount of people!';
-        }
-
-
-        if (!values.email) {
-            errors.email = 'Email is required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-            errors.email = 'Please enter a valid email address!';
-        }
-
-        return errors;
-    };
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required('Name is required!'),
+        surname: Yup.string().required('Surname is required!'),
+        address: Yup.string().required('Address is required!'),
+        email: Yup.string().email('Please enter a valid email address!').required('Email is required!'),
+        people: Yup.number()
+            .positive('Please enter a positive number of people!')
+            .required('Please enter a valid number of people!'),
+    });
 
     const formik = useFormik({
         initialValues: initialFormState,
-        validate: validateForm,
+        validationSchema,
         onSubmit: completeOrderHandler,
     });
 
